@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111522">
+  <title>Les profondeurs — Jeu de cartes</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="Accueil Les profondeurs">
+        <span class="brand-mark" aria-hidden="true">P</span>
+        <span>LES <strong>PROFONDEURS</strong></span>
+      </a>
+      <div class="topbar-meta">
+        <span class="status-dot"></span>
+        <span>EXPÉDITION EN COURS</span>
+      </div>
+      <button id="new-game" class="button button-secondary new-game-button hidden" type="button">Nouvelle partie</button>
+    </header>
+
+    <main>
+      <section id="welcome" class="welcome panel">
+        <div class="eyebrow">UN JEU DE CARTES &amp; D’AVENTURE</div>
+        <h1>Chaque salle<br><span>est un nouveau défi.</span></h1>
+        <p>Composez votre deck, survivez aux combats et allez au bout du donjon.</p>
+        <form id="start-form" class="start-form">
+          <label for="hero-name">Votre nom</label>
+          <input id="hero-name" name="name" maxlength="24" autocomplete="given-name" placeholder="Aventurier" value="Aventurier">
+          <label for="difficulty">Difficulté</label>
+          <select id="difficulty" name="difficulty">
+            <option value="1">Éclaireur — facile</option>
+            <option value="2" selected>Explorateur — intermédiaire</option>
+            <option value="3">Survivant — difficile</option>
+          </select>
+          <button id="cancel-start" class="button button-secondary hidden" type="button">Continuer la partie</button>
+          <button class="button button-primary" type="submit">Commencer l’aventure <span aria-hidden="true">→</span></button>
+        </form>
+      </section>
+
+      <section id="game" class="game hidden" aria-live="polite">
+        <div class="game-heading">
+          <div>
+            <div class="eyebrow" id="room-label">DONJON</div>
+            <h1 id="phase-title">Combat</h1>
+          </div>
+          <div class="room-counter" id="room-counter">Salle 1 / 1</div>
+        </div>
+
+        <div class="battle-layout">
+          <section class="arena panel">
+            <div class="section-heading">
+              <span class="eyebrow">ADVERSAIRES</span>
+              <span id="enemy-count" class="muted"></span>
+            </div>
+            <div id="enemies" class="enemy-list"></div>
+            <div id="empty-arena" class="empty-arena hidden">
+              <span class="empty-icon" aria-hidden="true">✦</span>
+              <p>La voie est libre.</p>
+            </div>
+            <div id="message" class="message" role="status"></div>
+          </section>
+
+          <aside class="hero-panel panel">
+            <div class="section-heading">
+              <span class="eyebrow">VOTRE AVENTURIER</span>
+              <span id="hero-name-display" class="hero-name"></span>
+            </div>
+            <div class="health-label"><span>Points de vie</span><strong id="health-value">—</strong></div>
+            <div class="health-track"><div id="health-bar" class="health-bar"></div></div>
+            <div class="hero-stats">
+              <div><span>Énergie</span><strong id="energy-value">—</strong></div>
+              <div><span>Pièces</span><strong id="coin-value">—</strong></div>
+              <div><span>Force</span><strong id="strength-value">—</strong></div>
+              <div><span>Blocage</span><strong id="block-value">—</strong></div>
+            </div>
+            <div class="deck-summary">
+              <span>Pioche <strong id="deck-size">—</strong></span>
+              <span>Défausse <strong id="discard-size">—</strong></span>
+            </div>
+            <div id="status-effects" class="status-effects"></div>
+          </aside>
+        </div>
+
+        <section id="action-panel" class="action-panel panel hidden">
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow">À VOUS DE JOUER</span>
+              <h2>Votre main <span id="turn-label" class="muted"></span></h2>
+            </div>
+            <button id="end-turn" class="button button-secondary" type="button">Terminer le tour</button>
+          </div>
+          <p id="selection-hint" class="hint">Sélectionnez une carte, puis choisissez une cible.</p>
+          <div id="hand" class="hand"></div>
+          <button id="play-card" class="button button-primary play-button" type="button" disabled>Jouer la carte</button>
+        </section>
+
+        <section id="choices-panel" class="choices-panel panel hidden">
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow" id="choices-eyebrow">ÉTAPE SUIVANTE</span>
+              <h2 id="choices-title">Choisissez</h2>
+            </div>
+          </div>
+          <div id="choices" class="choices"></div>
+        </section>
+
+        <section class="journal-panel panel">
+          <div class="section-heading">
+            <span class="eyebrow">JOURNAL DE L’EXPÉDITION</span>
+          </div>
+          <ol id="journal" class="journal"></ol>
+        </section>
+      </section>
+    </main>
+    <footer><span>LES PROFONDEURS</span><span>Une aventure à chaque partie</span></footer>
+  </div>
+  <div id="toast" class="toast" role="alert" aria-live="assertive"></div>
+</body>
+</html>
